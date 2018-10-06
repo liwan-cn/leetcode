@@ -5,6 +5,6 @@ class Solution {
             if(nums[i] != nums[i-1])
                 nums[cnt++] = nums[i]
         }
-        return n;
+        return cnt;
     }
 }

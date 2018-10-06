@@ -10,8 +10,8 @@ class Solution {
         if (b > B.length - 1) return A[a + k - 1];                
         if (k == 1) return Math.min(A[a], B[b]);
         int aMid = Integer.MAX_VALUE, bMid = Integer.MAX_VALUE;
-        if (a + k/2 - 1 < A.length) aMid = A[a + k/2 - 1]; 
-        if (b + k/2 - 1 < B.length) bMid = B[b + k/2 - 1];        
+        if (a + k/2 - 1 < A.length) aMid = A[a + k/2 - 1];
+        if (b + k/2 - 1 < B.length) bMid = B[b + k/2 - 1];
     
         if (aMid < bMid) 
             return getKth(A, a + k/2, B, b,       k - k/2);// Check: aRight + bLeft 
