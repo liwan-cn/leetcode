@@ -5,7 +5,7 @@ class Solution {
             m >>= 1;
             n >>= 1;
             moveBitCnt++;
-        }  
-       return m << moveBitCnt;
+        }
+        return m << moveBitCnt;
     }
 }

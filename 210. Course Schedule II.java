@@ -1,8 +1,9 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
         Set<Integer>[] graph = new HashSet[numCourses];
         int[] indegree = new int[numCourses];
-        int sum = 0;
+        int[] res = new int[numCourses];
+        int cnt = 0;
 
         for (int i = 0; i < graph.length; i++){
             graph[i] = new HashSet<Integer>();
@@ -17,20 +18,19 @@ class Solution {
         for (int i = 0; i < indegree.length; i++){
             if (indegree[i] == 0) {
                 queue.add(i);
-                sum ++;
+                res[cnt++] = i;
             }
         }
         while (!queue.isEmpty()){
             for (Integer to : graph[queue.remove()]){
                 indegree[to]--;
-                //System.out.println(to + ";" + sum);
                 if(indegree[to] == 0) {
                     queue.add(to);
-                    sum ++;
+                    res[cnt++] = to;
                 }
             }
         }
-        //System.out.println(sum);
-        return sum == graph.length;
+        if (cnt == graph.length) return res;
+        return new int[0];
     }
 }
