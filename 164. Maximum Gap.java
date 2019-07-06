@@ -1,34 +1,31 @@
 class Solution {
     public int maximumGap(int[] nums) {
         if (nums.length < 2) return 0;
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for (int item : nums){
-            max = Math.max(max, item);
-            min = Math.min(min, item);
+        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
+        for (int num : nums) {
+            max = Math.max(max, num);
+            min = Math.min(min, num);
         }
-        int gap = (int) Math.ceil((double)(max-min) / (nums.length-1));
-        int[] minBound = new int[nums.length-1];
-        int[] maxBound = new int[nums.length-1];
-        Arrays.fill(minBound, Integer.MAX_VALUE);
-        Arrays.fill(maxBound, Integer.MIN_VALUE);
-        for (int item : nums){
-            if (item == min || item == max)
+        int gap = (int) Math.ceil((double) (max - min) / (nums.length - 1));
+        int bucketCnt = gap == 0 ? 1 : (max-min) / gap + 1;
+        int[] leftBound = new int[bucketCnt];
+        int[] rightBound = new int[bucketCnt];
+        Arrays.fill(leftBound, Integer.MAX_VALUE);
+        Arrays.fill(rightBound, Integer.MIN_VALUE);
+        for (int num : nums) {
+            //if (num == max)  continue;
+            int idx = gap == 0 ? 0 : (num - min) / gap;
+            leftBound[idx] = Math.min(num, leftBound[idx]);
+            rightBound[idx] = Math.max(num, rightBound[idx]);
+        }
+        int maxGap = 0, pre = min;
+        for (int i = 0; i < leftBound.length; i++){
+            if (leftBound[i] == Integer.MAX_VALUE && rightBound[i] == Integer.MIN_VALUE)
                 continue;
-            int idx = (item - min) / gap;
-            minBound[idx] = Math.min(item, minBound[idx]);
-            maxBound[idx] = Math.max(item, maxBound[idx]);
+            maxGap = Math.max(maxGap, leftBound[i] - pre);
+            pre = rightBound[i];
         }
-        int maxGap = 0;
-        int pre = min;
-        for (int i = 0; i < nums.length-1; i++){
-            if (minBound[i] == Integer.MAX_VALUE && maxBound[i] == Integer.MIN_VALUE)
-                continue;
-            maxGap = Math.max(maxGap, minBound[i] - pre);
-            pre = maxBound[i];
-            System.out.println(pre);
-        }
-        maxGap = Math.max(maxGap, max - pre);
+        //maxGap = Math.max(maxGap, max - pre);
         return maxGap;
     }
 }

@@ -1,14 +1,13 @@
 class Solution {
     public String convertToTitle(int n) {
-        StringBuffer strB = new StringBuffer();
+        StringBuffer res = new StringBuffer();
         while(n > 0){
             if(n % 26 == 0)
-                strB.append((char)('Z'));
+                res.append((char)('Z'));
             else
-                strB.append((char)('A' + n % 26 -1));
-            n--;
-            n /= 26;
+                res.append((char)('A' + n % 26 -1));
+            n--; n /= 26;
         }
-        return strB.reverse().toString();
+        return res.reverse().toString();
     }
 }

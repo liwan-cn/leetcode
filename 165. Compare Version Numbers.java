@@ -8,7 +8,7 @@ class Solution {
             if (i < v2.length) child2 = Integer.parseInt(v2[i]);
             if (child1 > child2) return 1;
             if (child1 < child2) return -1;
-            System.out.println(child1 + ";" + child2);
+            //System.out.println(child1 + ";" + child2);
         }
         return 0;
     }

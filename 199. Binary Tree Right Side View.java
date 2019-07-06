@@ -14,10 +14,11 @@ class Solution {
         return res;
     }
     private void rightView(TreeNode root, List<Integer> res, int depth){
+        //后序遍历
         if (root == null) return;
         if (depth == res.size()) res.add(root.val);
         rightView(root.right, res, depth+1);
         rightView(root.left, res, depth+1);
-        
+
     }
 }
