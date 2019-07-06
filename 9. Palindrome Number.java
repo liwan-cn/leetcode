@@ -9,7 +9,5 @@ class Solution {
             x = x / 10;
         }
         return sum == n;
-        // String s = x + "";
-        // return s.equals(new StringBuffer(s).reverse().toString());
     }
 }

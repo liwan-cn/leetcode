@@ -5,35 +5,34 @@ class Solution {
         result[1] = findLast(nums, target);
         return result;
     }
-
-    public int findFirst(int[] nums, int target){
+    private int findFirst(int[] nums, int target){
         int idx = -1;
         int start = 0;
         int end = nums.length - 1;
-        while(start <= end){
-            int mid = (start + end) / 2;
-            if(nums[mid] >= target){
+        while (start <= end) {
+            int mid = (start + end) >> 1;
+            if (nums[mid] >= target) {
                 end = mid - 1;
-            }else{
+            } else {
                 start = mid + 1;
             }
-            if(nums[mid] == target) idx = mid;
+            if (nums[mid] == target) idx = mid;
         }
         return idx;
     }
 
-    public int findLast(int[] nums, int target){
+    private int findLast(int[] nums, int target){
         int idx = -1;
         int start = 0;
         int end = nums.length - 1;
-        while(start <= end){
-            int mid = (start + end) / 2;
-            if(nums[mid] <= target){
+        while (start <= end) {
+            int mid = (start + end) >> 1;
+            if (nums[mid] <= target) {
                 start = mid + 1;
-            }else{
+            } else {
                 end = mid - 1;
             }
-            if(nums[mid] == target) idx = mid;
+            if (nums[mid] == target) idx = mid;
         }
         return idx;
     }

@@ -12,6 +12,7 @@ class Solution {
         tmp.next = head;
         ListNode fast = tmp, slow = tmp;
         int cnt = 0;
+
         while(fast.next != null){
             if(cnt++ >= n)
                 slow = slow.next;

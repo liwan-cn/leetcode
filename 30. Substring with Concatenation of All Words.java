@@ -4,9 +4,10 @@ class Solution {
         for (String word : words) {
             counts.put(word, counts.getOrDefault(word, 0) + 1);
         }
-        List<Integer> indexes = new ArrayList<>();
+        List<Integer> indexs = new ArrayList<>();
+        if (s.length() == 0 || words.length == 0) return indexs;
         int n = s.length(), num = words.length, len = words[0].length();
-        for (int i = 0; i < n - num * len + 1; i++) {
+        for (int i = 0; i <= n - num * len; i++){
             Map<String, Integer> seen = new HashMap<>();
             int j = 0;
             while (j < num) {
@@ -22,9 +23,9 @@ class Solution {
                 j++;
             }
             if (j == num) {
-                indexes.add(i);
+                indexs.add(i);
             }
         }
-        return indexes;
+        return indexs;
     }
 }

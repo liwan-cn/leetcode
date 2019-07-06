@@ -7,34 +7,21 @@
  * }
  */
 class Solution {
-    public ListNode mergeKLists(ListNode [] lists) {
+    public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) return null;
-        PriorityQueue<ListNode> queue= new PriorityQueue<ListNode>(new Comparator<ListNode>(){
-            @Override
-            public int compare(ListNode o1, ListNode o2){
-                if (o1.val < o2.val)
-                    return -1;
-                else if (o1.val == o2.val)
-                    return 0;
-                else 
-                    return 1;
-            }
-        });
-        
-        ListNode dummy = new ListNode(0);
-        ListNode tail = dummy;
-        
+        PriorityQueue<ListNode> queue= new PriorityQueue<ListNode>((o1, o2) -> (o1.val - o2.val));
+        ListNode head0 = new ListNode(0);
+        ListNode tail = head0;
         for (ListNode node : lists)
             if (node != null)
                 queue.add(node);
-            
         while (!queue.isEmpty()){
             tail.next = queue.poll();
-            tail = tail.next;
-
-            if (tail.next != null)
+            tail  = tail.next;
+            if (tail.next != null){
                 queue.add(tail.next);
+            }
         }
-        return dummy.next;
+        return head0.next;
     }
 }

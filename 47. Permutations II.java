@@ -1,31 +1,31 @@
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
-        backtrack(list, nums, 0, nums.length-1);
-        return list;
+        List<List<Integer>> lists = new ArrayList<>();
+        permuteRemain(lists, nums, 0);
+        return lists;
     }
-    public void backtrack(List<List<Integer>> list, int[] nums, int begin, int end) {
-        if (begin == end) {
+    private void permuteRemain(List<List<Integer>> lists, int[] nums, int start){
+        if (start == nums.length - 1) {
             List<Integer> tmp = new ArrayList<>();
             for(int item : nums){
                 tmp.add(item);
             }
-            list.add(tmp);
+            lists.add(tmp);
         } else {
-            for (int i = begin; i <= end; i++) {
-                if (!swapAccepted(nums, begin, i)) continue;
-                swap(nums, begin, i);
-                backtrack(list, nums, begin + 1, end);
-                swap(nums, begin, i); 
+            for (int i = start, end = nums.length - 1; i <= end; i++) {
+                if (!swapAccepted(nums, start, i)) continue;
+                swap(nums, start, i);
+                permuteRemain(lists, nums, start + 1);
+                swap(nums, start, i);
             }
         }
     }
-    public void swap(int[] nums, int i, int j){
+    private void swap(int[] nums, int i, int j){
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
     }
-    public boolean swapAccepted(int[] nums, int start, int end) {
+    private boolean swapAccepted(int[] nums, int start, int end) {
         for (int i = start; i < end; i++) {
             if (nums[i] == nums[end]) {
                 return false;

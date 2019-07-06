@@ -10,6 +10,7 @@ class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode curr = head;
         int count = 0;
+
         while (curr != null && count != k) { // find the k+1 node
             curr = curr.next;
             count++;
