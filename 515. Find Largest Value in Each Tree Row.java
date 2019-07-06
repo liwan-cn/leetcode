@@ -15,7 +15,7 @@ class Solution {
     }
     private void updateMaxValue(List<Integer> res, TreeNode root, int depth){
         if (root == null) return;
-        if (res.size() <= depth) 
+        if (res.size() <= depth)
             res.add(root.val);
         res.set(depth, Math.max(res.get(depth), root.val));
         updateMaxValue(res, root.left, depth+1);

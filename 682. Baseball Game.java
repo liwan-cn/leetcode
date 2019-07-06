@@ -2,13 +2,13 @@ class Solution {
     public int calPoints(String[] ops) {
         List<Integer> score = new ArrayList<>();
         for (String s: ops){
-            if (s.equals("+")) 
+            if (s.equals("+"))
                 score.add(score.get(score.size()-1) + score.get(score.size()-2));
-            else if(s.equals("D")) 
+            else if(s.equals("D"))
                 score.add(score.get(score.size()-1) * 2);
-            else if(s.equals("C")) 
+            else if(s.equals("C"))
                 score.remove(score.size()-1);
-            else 
+            else
                 score.add(Integer.valueOf(s));
         }
         int ret = 0;

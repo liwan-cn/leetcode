@@ -7,7 +7,7 @@ class Solution {
             for (int j = 0, weight = wall.get(i).size(); j < weight - 1; j++){
                 length += wall.get(i).get(j);
                 map.put(length, map.getOrDefault(length, 0) + 1);
-                if (map.get(length) > max) max = map.get(length);
+                max = Math.max(max, map.get(length));
             }
         }
         return wall.size() - max;
