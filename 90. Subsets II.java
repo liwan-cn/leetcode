@@ -5,9 +5,11 @@ class Solution {
         subsets(lists, new ArrayList<>(), nums, 0);
         return lists;
     }
-    public void subsets(List<List<Integer>> lists, List<Integer> list,int[] nums, int start) {
+    private void subsets(List<List<Integer>> lists, List<Integer> list,int[] nums, int start) {
         lists.add(new ArrayList<Integer>(list));
-        for (int i = start; i < nums.length; i++) {
+        for (int  i = start; i < nums.length; i++) {
+            //从某一个之后的都不添加起到选择的作用
+            //[1,2,#2#,2,2,3,4], #2#一个分支是添加下一个2, 另一个是跳到3
             if (i > start && nums[i] == nums[i-1]) continue;
             list.add(nums[i]);
             subsets(lists, list, nums, i+1);

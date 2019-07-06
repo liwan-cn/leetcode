@@ -8,7 +8,7 @@
  */
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        if(head == null) return head;
+        if (head == null) return null;
         ListNode fast = head, slow = head;
         int len = 0;
         while(fast != null){
@@ -20,7 +20,6 @@ class Solution {
         fast = head;
         int i = 0;
         while(++i <= k) fast = fast.next;
-        if(fast == null) return head;
         while(fast.next != null){
             fast = fast.next;
             slow = slow.next;

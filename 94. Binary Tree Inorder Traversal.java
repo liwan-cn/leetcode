@@ -16,11 +16,10 @@ class Solution {
         while (node != null || !s.isEmpty()){
             if (node != null){
                 s.push(node);
-                //list.add(node.val); //pre order
                 node = node.left;
             } else {
                 node = s.pop();
-                list.add(node.val); //in order
+                list.add(node.val);
                 node = node.right;
             }
         }

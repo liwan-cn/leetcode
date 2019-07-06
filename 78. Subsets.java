@@ -4,7 +4,7 @@ class Solution {
         subsets(lists, new ArrayList<Integer>(), nums, 0);
         return lists;
     }
-    public void subsets(List<List<Integer>> lists, List<Integer> list,int[] nums, int start) {
+    private void subsets(List<List<Integer>> lists, List<Integer> list,int[] nums, int start) {
         lists.add(new ArrayList<Integer>(list));
         for (int i = start; i < nums.length; i++) {
             list.add(nums[i]);

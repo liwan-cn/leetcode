@@ -8,28 +8,24 @@
  * }
  */
 class Solution {
+    private TreeNode pre, first, second;
     public void recoverTree(TreeNode root) {
-        Stack<TreeNode> s = new Stack<>();
-        TreeNode node = root;
-        TreeNode pre = null, firstError =null, secondError = null;
-        while (node != null || !s.isEmpty()){
-            if (node != null){
-                s.push(node);
-                node = node.left;
-            } else {
-                node = s.pop();
-                if(pre != null && firstError != null && node.val < pre.val){
-                    secondError = node;
-                } else if (pre != null && node.val < pre.val){
-                    firstError = pre;
-                    secondError = node;// only two node
-                }
-                pre = node;
-                node = node.right;
-            }
+        pre = null; first = null; second = null;
+        findWrong(root);
+        int tmp = first.val;
+        first.val = second.val;
+        second.val = tmp;
+    }
+    private void findWrong(TreeNode root){
+        if (root == null) return;
+        findWrong(root.left);
+        if(pre != null && first != null && root.val < pre.val){
+            second = root;
+        } else if (pre != null && root.val < pre.val){
+            first = pre;
+            second = root;// only two node
         }
-        int tmp = firstError.val;
-        firstError.val = secondError.val;
-        secondError.val = tmp;
+        pre = root;
+        findWrong(root.right);
     }
 }

@@ -1,16 +1,31 @@
 class Solution {
-    public int maxSubArray(int[] nums) {
-        int last = nums[0];
-        int max = nums[0];
-        for(int i = 1; i < nums.length; i++){
-            if(last > 0) {
-                last = last + nums[i];
-            }
-            else{
-                last = nums[i];
-            }
-            max = max > last ? max : last;
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<Integer>();
+
+        if (matrix.length == 0) {
+            return res;
         }
-        return max;
+
+        int rowBegin = 0;
+        int rowEnd = matrix.length - 1;
+        int colBegin = 0;
+        int colEnd = matrix[0].length - 1;
+        while (rowBegin <= rowEnd && colBegin <= colEnd){
+            for (int j = colBegin; j <= colEnd; j ++)
+                res.add(matrix[rowBegin][j]);
+            rowBegin ++;
+            for (int i = rowBegin; i <= rowEnd; i ++)
+                res.add(matrix[i][colEnd]);
+            colEnd --;
+            if (rowBegin <= rowEnd)
+                for (int j = colEnd; j >= colBegin; j --)
+                    res.add(matrix[rowEnd][j]);
+            rowEnd--;
+            if (colBegin <= colEnd)
+                for (int i = rowEnd; i >= rowBegin; i --)
+                    res.add(matrix[i][colBegin]);
+            colBegin ++;
+        }
+        return res;
     }
 }

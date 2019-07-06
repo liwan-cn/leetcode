@@ -8,26 +8,24 @@
  */
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return head;
         ListNode head0 = new ListNode(0);
-        head0 = null;
-        ListNode now = head, tail = head0;
-        if (now == null || now.next == null) return head;
-        if (now.val != now.next.val) {
-            tail.next = now;
-            tail = tail.next;
-        }
-        ListNode last = now;
-        now = now.next;
-        while (now != null){
-            if (now.val != last.val){
-                if ((now.next != null && now.val != now.next.val) || now.next == null){
-                    tail.next = now;
-                    tail = tail.next;
-                }
+        ListNode pre = null, now = head, tail = head0;
+
+        while (now != null) {
+            if (valid(now, pre)) {
+                tail.next = now;
+                tail = tail.next;
             }
-            last = now;
+            pre = now;
             now = now.next;
         }
+        tail.next = null;
         return head0.next;
+    }
+    private boolean valid(ListNode now, ListNode pre) {
+        boolean fp = pre == null || now.val != pre.val;
+        boolean fn = now.next == null || now.val != now.next.val;
+        return fp && fn;
     }
 }

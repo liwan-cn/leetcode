@@ -4,17 +4,16 @@ class Solution {
         int m = matrix.length;
         int n = matrix[0].length;
         int begin = 0, end = m * n - 1;
-    
+
         while(begin <= end){
             int mid = (begin + end) >> 1;
-            int mid_value = matrix[mid/n][mid%n];
+            int mid_value = matrix[mid / n][mid % n];
             if( mid_value == target){
                 return true;
             }else if(mid_value < target){
-                //Should move a bit further, otherwise dead loop.
-                begin = mid+1;
+                begin = mid + 1;
             }else{
-                end = mid-1;
+                end = mid - 1;
             }
         }
         return false;

@@ -12,7 +12,7 @@ class Solution {
         if (n == 0) return new ArrayList<>(); // n = 0
         return generateTrees(1, n);
     }
-    public List<TreeNode> generateTrees(int start, int end){
+    private List<TreeNode> generateTrees(int start, int end){
         List<TreeNode> list = new ArrayList<>();
         if (start > end) {
             list.add(null); //left or right = null;
@@ -26,7 +26,7 @@ class Solution {
         for(int i = start; i <= end; i++){
             left = generateTrees(start, i-1);
             right = generateTrees(i+1,end);
-            
+
             for(TreeNode lnode: left){
                 for(TreeNode rnode: right){
                     TreeNode root = new TreeNode(i);

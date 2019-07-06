@@ -1,11 +1,11 @@
 class Solution {
     public String simplifyPath(String path) {
-        String[] dir = path.split("/");
+        String [] dir = path.split("/");
         List<String> list = new ArrayList<>();
-        for(String s : dir){
+        for (String s : dir){
             if (s.equals("") || s.equals(".")) continue;
             if(s.equals("..")){
-                if (list.size() > 0) 
+                if (list.size() > 0)
                     list.remove(list.size()-1);
             } else {
                 list.add(s);
@@ -15,7 +15,7 @@ class Solution {
         for (String s : list){
             sb.append("/" + s);
         }
-        if (sb.length() == 0) 
+        if (sb.length() == 0)
             sb.append("/");
         return sb.toString();
     }

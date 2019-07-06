@@ -1,5 +1,5 @@
 class Solution {
-    int count = 0;
+    private int count  = 0;
     public int totalNQueens(int n) {
         char[][] board = new char[n][n];
         for(int i = 0; i < n; i++)
@@ -8,13 +8,13 @@ class Solution {
         dfs(board, 0);
         return count;
     }
-    
-    public void dfs(char[][] board, int row) {
+
+    private void dfs(char[][] board, int row) {
         if(row == board.length) {
-            count++;
+            count ++;
             return;
         }
-        
+
         for(int j = 0; j < board.length; j++) {
             if(validate(board, row, j)) {
                 board[row][j] = 'Q';
@@ -23,15 +23,14 @@ class Solution {
             }
         }
     }
-    
-    public boolean validate(char[][] board, int x, int y) {
-        for(int i = 0; i < board.length; i++) {
+
+    private boolean validate(char[][] board, int x, int y) {
+        for(int i = 0; i < x; i++) {
             for(int j = 0; j < board.length; j++) {
                 if(board[i][j] == 'Q' && (x + j == y + i || x + y == i + j || y == j))
                     return false;
             }
         }
-        
         return true;
     }
 }

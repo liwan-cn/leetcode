@@ -11,11 +11,9 @@ class Solution {
         --k;
         for(int i = 1; i <= n; i++){
             int index = k / factorial[n-i];
-            sb.append(numbers.get(index) + "");
-            numbers.remove(index);
+            sb.append(numbers.remove(index));
             k %= factorial[n-i];
         }
         return sb.toString();
-
     }
 }
