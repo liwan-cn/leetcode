@@ -15,11 +15,11 @@ class Solution {
     }
     private int helper(TreeNode root, int nowSum, int target, Map<Integer, Integer> preSumCnt){
         if (root == null) return 0;
-        
+
         nowSum += root.val;
         int res = preSumCnt.getOrDefault(nowSum - target, 0);
         preSumCnt.put(nowSum, preSumCnt.getOrDefault(nowSum, 0) + 1);
-        
+
         res += helper(root.left, nowSum, target, preSumCnt) + helper(root.right, nowSum, target, preSumCnt);
         preSumCnt.put(nowSum, preSumCnt.get(nowSum) - 1);
         return res;
