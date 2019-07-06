@@ -9,21 +9,18 @@
  */
 class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> result = new LinkedList<>();
-        if(root == null) return result;
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-        while(!queue.isEmpty()){
-            List<Integer> list = new ArrayList<>();
-            int size = queue.size();
-            for(int i = 0; i < size; i++){
-                TreeNode node = queue.poll();
-                list.add(node.val);
-                if(node.left != null) queue.add(node.left);
-                if(node.right != null) queue.add(node.right);
-            }
-            result.add(0,list);
+        List<List<Integer>> res = new ArrayList<>();
+        levelOrder(res, root, 0);
+        Collections.reverse(res);
+        return res;
+    }
+    private void levelOrder(List<List<Integer>> res, TreeNode root, int height){
+        if (root == null) return;
+        if (res.size() <= height){
+            res.add(new ArrayList<>());
         }
-        return result;
+        res.get(height).add(root.val);
+        levelOrder(res, root.left, height+1);
+        levelOrder(res, root.right, height+1);
     }
 }

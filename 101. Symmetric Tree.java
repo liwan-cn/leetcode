@@ -9,13 +9,14 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        return root==null || isSymmetricHelp(root.left, root.right);
+        if (root == null) return true;
+        return isSymmetric(root.left, root.right);
     }
-    public boolean isSymmetricHelp(TreeNode left, TreeNode right){
-        if(left == null || right == null)
+    private boolean isSymmetric(TreeNode left, TreeNode right){
+        if (left == null || right == null)
             return left == right;
-        if(left.val != right.val)
+        if (left.val != right.val)
             return false;
-        return isSymmetricHelp(left.left, right.right) && isSymmetricHelp(left.right, right.left);
+        return isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left);
     }
 }

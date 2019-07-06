@@ -12,11 +12,9 @@ class Solution {
                 if (Character.toLowerCase(h) != Character.toLowerCase(t)) {
                     return false;
                 }
-                head++;
-                tail--;
+                head++; tail--;
             }
         }
-        
         return true;
     }
 }

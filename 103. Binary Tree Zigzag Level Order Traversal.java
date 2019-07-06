@@ -10,20 +10,19 @@
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
-        levelHelper(res, root, 0);
+        levelOrder(res, root, 0);
+        for (int i = 1, size = res.size(); i < size; i += 2){
+            Collections.reverse(res.get(i));
+        }
         return res;
     }
-    
-    public void levelHelper(List<List<Integer>> res, TreeNode root, int height) {
+    private void levelOrder(List<List<Integer>> res, TreeNode root, int height){
         if (root == null) return;
-        if (res.size() <= height) {
-            res.add(new LinkedList<Integer>());
+        if (res.size() <= height){
+            res.add(new ArrayList<>());
         }
-        if ((height & 1) == 0)
-            res.get(height).add(root.val);
-        else
-            res.get(height).add(0, root.val);
-        levelHelper(res, root.left, height+1);
-        levelHelper(res, root.right, height+1);
+        res.get(height).add(root.val);
+        levelOrder(res, root.left, height+1);
+        levelOrder(res, root.right, height+1);
     }
 }

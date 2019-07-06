@@ -22,7 +22,7 @@ class Solution {
         return merge(l1, l2);
 
     }
-    public ListNode merge(ListNode l1, ListNode l2){
+    private ListNode merge(ListNode l1, ListNode l2){
         ListNode head0 = new ListNode(0), tmp = head0;
         while (l1 != null && l2 != null){
             if (l1.val < l2.val){

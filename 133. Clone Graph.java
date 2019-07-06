@@ -1,25 +1,31 @@
-/**
- * Definition for undirected graph.
- * class UndirectedGraphNode {
- *     int label;
- *     List<UndirectedGraphNode> neighbors;
- *     UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
- * };
- */
-public class Solution {
-    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-        Map<Integer, UndirectedGraphNode> map = new HashMap<>();
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> neighbors;
+
+    public Node() {}
+
+    public Node(int _val,List<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+*/
+class Solution {
+    public Node cloneGraph(Node node) {
+        Map<Integer, Node> map = new HashMap<>();
         return clone(node, map);
     }
-    public UndirectedGraphNode clone(UndirectedGraphNode node, Map<Integer, UndirectedGraphNode> map){
+    private Node clone(Node node, Map<Integer, Node> map){
         if (node == null) return null;
-        if (map.containsKey(node.label))
-            return map.get(node.label);
-        UndirectedGraphNode clone = new UndirectedGraphNode(node.label);
-        map.put(clone.label, clone);
-        for (UndirectedGraphNode neighbor : node.neighbors) {
-            clone.neighbors.add(clone(neighbor, map));
+        if (map.containsKey(node.val))
+            return map.get(node.val);
+        Node cloneNode = new Node(node.val, new ArrayList<Node>());
+        map.put(node.val, cloneNode);
+        for (Node n : node.neighbors) {
+            cloneNode.neighbors.add(clone(n, map));
         }
-        return clone;
+        return cloneNode;
     }
 }

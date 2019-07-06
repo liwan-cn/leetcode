@@ -11,9 +11,9 @@ class Solution {
     public int sumNumbers(TreeNode root) {
         return sumNumbers(root, 0);
     }
-    public int sumNumbers(TreeNode root, int pre){
-        if (root == null) return 0;
-        if (root.right == null && root.left == null) return pre*10 + root.val;
-        return sumNumbers(root.left, pre*10 + root.val) + sumNumbers(root.right, pre*10 + root.val);
+    private int sumNumbers(TreeNode node, int pre){
+        if (node == null) return 0;
+        if (node.right == null && node.left == null) return pre*10 + node.val;
+        return sumNumbers(node.left, pre*10 + node.val) + sumNumbers(node.right, pre*10 + node.val);
     }
 }

@@ -1,24 +1,22 @@
 class LRUCache {
-    class DLinkedNode{
-        int key;
-        int value;
-        DLinkedNode pre, next;
-        public DLinkedNode(int key, int value){
+    class BiLinkedNode{
+        int key, value;
+        BiLinkedNode pre = null, next = null;
+        public BiLinkedNode(int key, int value){
             this.key = key;
             this.value = value;
-            this.pre = null;
-            this.next = null;
         }
-        public DLinkedNode(int key, int value, DLinkedNode pre, DLinkedNode next){
+        public BiLinkedNode(int key, int value, BiLinkedNode pre, BiLinkedNode next){
             this.key = key;
             this.value = value;
             this.pre = pre;
             this.next = next;
         }
     }
+
     private int size, capacity;
-    private DLinkedNode head, tail;
-    private Map<Integer, DLinkedNode> map;
+    private BiLinkedNode head, tail;
+    private Map<Integer, BiLinkedNode> map;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
@@ -27,27 +25,25 @@ class LRUCache {
         this.tail = null;
         this.map = new HashMap<>();
     }
-    
+
     public int get(int key) {
         if (map.containsKey(key)) {
-            DLinkedNode temp = map.get(key);
-            if (temp == tail){
+            BiLinkedNode hit = map.get(key);
+            if (hit == tail){
                 head = head.pre;
                 tail = tail.pre;
-            } else if (temp != head){
-                temp.next.pre = temp.pre;
-                temp.pre.next = temp.next;
-                temp.next = head;
-                temp.pre = tail;
-                head.pre = temp;
-                tail.next = temp;
-                head = temp;
+            } else if (hit != head){
+                hit.next.pre = hit.pre;
+                hit.pre.next = hit.next;
+                hit.next = head; head.pre = hit;
+                hit.pre = tail; tail.next = hit;
+                head = hit;
             }
-            return temp.value;
+            return hit.value;
         }
         return -1;
     }
-    
+
     public void put(int key, int value) {
         if (map.containsKey(key)){
             get(key);
@@ -56,23 +52,19 @@ class LRUCache {
         }
         if (size == capacity){
             map.remove(tail.key);
-            head = head.pre;
-            tail = tail.pre;
-            head.key = key;
-            head.value = value;
+            head = head.pre; tail = tail.pre;
+            head.key = key; head.value = value;
         } else {
-            size ++;
-            if (size == 1){
-                DLinkedNode temp = new DLinkedNode(key, value);
-                head = temp; tail = temp;
-                head.pre = tail;
-                tail.next = head;
+            if (size == 0){
+                BiLinkedNode add = new BiLinkedNode(key, value);
+                head = add; tail = add;
+                head.pre = tail; tail.next = head;
             } else {
-                DLinkedNode temp = new DLinkedNode(key, value, tail, head);
-                head.pre = temp;
-                tail.next = temp;
-                head = temp;
+                BiLinkedNode add = new BiLinkedNode(key, value, tail, head);
+                head.pre = add; tail.next = add;
+                head = add;
             }
+            ++size;
         }
         map.put(key, head);
     }

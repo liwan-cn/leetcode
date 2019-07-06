@@ -17,9 +17,9 @@
  */
 class Solution {
     public TreeNode sortedListToBST(ListNode head) {
-        return helper(head, null);
+        return buildTree(head, null);
     }
-    public TreeNode helper(ListNode head, ListNode tail){
+    private TreeNode buildTree(ListNode head, ListNode tail){
         if (head == tail) return null;
         ListNode slow = head, fast = head;
         while(fast != tail && fast.next != tail){
@@ -27,8 +27,8 @@ class Solution {
             slow = slow.next;
         }
         TreeNode node = new TreeNode(slow.val);
-        node.left = helper(head, slow);
-        node.right = helper(slow.next, tail);
+        node.left = buildTree(head, slow);
+        node.right = buildTree(slow.next, tail);
         return node;
     }
 }

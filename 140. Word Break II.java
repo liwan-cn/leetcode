@@ -1,8 +1,13 @@
 class Solution {
     public List<String> wordBreak(String s, List<String> wordDict) {
+
         Set<String> wordSet = new HashSet<>(wordDict);
+        int minLen = Integer.MAX_VALUE, maxLen = Integer.MIN_VALUE;
+        for (String word: wordSet) {
+            minLen = Math.min(minLen, word.length());
+            maxLen = Math.max(maxLen, word.length());
+        }
         List<List<Integer>> reach = new ArrayList<>();
-        List<String> lists = new ArrayList<>();
         List<String> list = new ArrayList<>();
 
         int len = s.length();
@@ -11,34 +16,49 @@ class Solution {
         boolean[] dp = new boolean[len + 1];
         dp[0] = true;
         for(int i = 1; i <= len; i++){
-            for(int j = 0; j < i; j++){
+            for(int l = minLen; l <= maxLen && i >= l; l++){
+                int j = i - l;
                 if(dp[j] && wordSet.contains(s.substring(j, i))){
                     dp[i] = true;
-                    reach.get(i-1).add(j);
+                    reach.get(j).add(i);
                 }
             }
         }
-        System.out.println(reach);
-        backtrack(lists, list, reach, s, dp, len);
-        return lists;
+        if (!dp[len]) return list;
+        //System.out.println(reach.toString());
+        genSentence(list, reach, s, "", 0);
+        return list;
     }
-    public void backtrack(List<String> lists, List<String> list, List<List<Integer>> reach, String s, boolean[] dp, int end){
-        if (end == 0) {
-            int len = list.size();
-            StringBuilder sb = new StringBuilder();
-            for (int i = len-1; i >= 0; i--){
-                sb.append(list.get(i));
-                if (i != 0) 
-                    sb.append(" ");
-            }
-            lists.add(sb.toString());
+    public void genSentence(List<String> list,  List<List<Integer>> reach, String s, String pre, int end){
+        //System.out.println(pre);
+        if (end == s.length()) {
+            list.add(pre.substring(0, pre.length()-1));
             return;
         }
-        for (int i : reach.get(end-1)){
-            String key = s.substring(i, end);
-            list.add(key);
-            backtrack(lists, list, reach, s, dp, i);
-            list.remove(list.size()-1);
+        for (int i : reach.get(end)){
+            String key = s.substring(end, i);
+            genSentence(list, reach, s, pre + key + " ", i);
         }
     }
+    /*
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        int wordMaxLen = Integer.MIN_VALUE;
+        for (String word : wordDict){
+            wordMaxLen = Math.max(wordMaxLen, word.length());
+        }
+        Set<String> wordSet = new HashSet<>(wordDict);
+        List<String> list = new ArrayList<>();
+        genSentence(list, wordSet, s, "", 0,  wordMaxLen);
+        return list;
+    }
+    private void genSentence(List<String> list, Set<String> wordSet, String s, String pre, int start, int wordMaxLen){
+        for (int l = 1, len = s.length(); l <= wordMaxLen && start + l <= len; l++){
+            String nowWord = s.substring(start, start + l);
+            if (wordSet.contains(nowWord)){
+                if (start + l == len) list.add(pre + nowWord);
+                else genSentence(list, wordSet, s, pre + nowWord + " ", start + l, wordMaxLen);
+            }
+        }
+    }
+    */
 }

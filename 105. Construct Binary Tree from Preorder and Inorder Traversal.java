@@ -11,13 +11,13 @@ class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         return buildTree(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1);
     }
-    public TreeNode buildTree(int[] preorder, int ps, int pe, int[] inorder, int is, int ie){
+    private TreeNode buildTree(int[] preorder, int ps, int pe, int[] inorder, int is, int ie){
         if (ps > pe || is > ie) return null;
-        int cnt = 0;
-        while (inorder[is+cnt] != preorder[ps]) cnt++;
+        int index = 0;
+        while (inorder[is+index] != preorder[ps]) index++;
         TreeNode root = new TreeNode(preorder[ps]);
-        root.left = buildTree(preorder, ps+1, ps+cnt, inorder, is, is+cnt-1);
-        root.right = buildTree(preorder, ps+cnt+1, pe, inorder, is+cnt+1, ie);
+        root.left = buildTree(preorder, ps+1, ps+index, inorder, is, is+index-1);
+        root.right = buildTree(preorder, ps+index+1, pe, inorder, is+index+1, ie);
         return root;
     }
 }

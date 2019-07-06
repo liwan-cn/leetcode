@@ -11,10 +11,13 @@ class Solution {
     private TreeNode pre = null;
     public void flatten(TreeNode root) {
         if (root == null) return;
-        flatten(root.right);
-        flatten(root.left);
-        root.right = pre;
+        //System.out.println(root.val);
+        TreeNode left = root.left, right = root.right;
+        if (pre != null) pre.right = root;
         root.left = null;
+        //root.right = null;
         pre = root;
+        flatten(left);
+        flatten(right);
     }
 }

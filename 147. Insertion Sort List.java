@@ -12,16 +12,16 @@ class Solution {
         ListNode helper = new ListNode(0);
         ListNode cur = head;
         ListNode pre = helper;
-        ListNode next = null;
+        ListNode tmp = null;
         while (cur != null){
-            next = cur.next;
+            tmp = cur.next;
             while (pre.next != null && pre.next.val < cur.val){
                 pre = pre.next;
             }
             cur.next = pre.next;
             pre.next = cur;
             pre = helper;
-            cur = next;
+            cur = tmp;
         }
         return helper.next;
     }

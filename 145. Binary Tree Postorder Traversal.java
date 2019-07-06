@@ -10,26 +10,25 @@
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         Stack<TreeNode> s = new Stack<>();
-        List<Integer> list = new ArrayList<>();
-        if (root == null) return list;
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
         TreeNode node = root, pre = null;
-        while (node != null || !s.isEmpty()){
-            if (node != null){
+        while (node != null || !s.isEmpty()) {
+            if (node != null) {
                 s.push(node);
                 node = node.left;
             } else {
                 node = s.peek();
-                if (node.right == null || node.right == pre){
-                    list.add(node.val);
+                if (node.right == null || node.right == pre) {
                     s.pop();
+                    res.add(node.val);
                     pre = node;
-                    node = null; // important
+                    node = null;
                 } else {
                     node = node.right;
                 }
-                    
             }
         }
-        return list;
+        return res;
     }
 }

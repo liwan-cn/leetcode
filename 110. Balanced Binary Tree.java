@@ -11,13 +11,12 @@ class Solution {
     public boolean isBalanced(TreeNode root) {
         return getHeight(root) != -1;
     }
-    public int getHeight(TreeNode root) {
+    private int getHeight(TreeNode root){
         if (root == null) return 0;
         int l = getHeight(root.left);
         int r = getHeight(root.right);
-        if (l == -1 || r == -1 || Math.abs(l-r) > 1) {
+        if (l == -1 || r == -1 || Math.abs(l-r) > 1)
             return -1;
-        }
-        return 1 + Math.max(l,r);
+        return Math.max(l, r) + 1;
     }
 }

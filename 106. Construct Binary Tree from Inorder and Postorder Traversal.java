@@ -9,16 +9,15 @@
  */
 class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        return buildTree(inorder, 0, inorder.length-1, postorder, 0, postorder.length-1);
+        return buildTree(postorder, 0, postorder.length-1, inorder, 0, inorder.length-1);
     }
-    
-    public static TreeNode buildTree(int[] inorder, int is, int ie, int[] postorder, int ps, int pe){
+    private TreeNode buildTree(int[] postorder, int ps, int pe, int[] inorder, int is, int ie){
         if (ps > pe || is > ie) return null;
-        int cnt = 0;
-        while (inorder[is+cnt] != postorder[pe]) cnt++;
+        int index = 0;
+        while (inorder[is+index] != postorder[pe]) index++;
         TreeNode root = new TreeNode(postorder[pe]);
-        root.left = buildTree(inorder, is, is+cnt-1, postorder, ps, ps+cnt-1);
-        root.right = buildTree(inorder, is+cnt+1, ie, postorder, ps+cnt, pe-1);
+        root.left = buildTree(postorder, ps, ps+index-1, inorder, is, is+index-1);
+        root.right = buildTree(postorder, ps+index, pe-1, inorder, is+index+1, ie);
         return root;
     }
 }

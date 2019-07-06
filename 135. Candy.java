@@ -6,14 +6,15 @@ class Solution {
             if (ratings[i] > ratings[i-1])
                 candies[i] = candies[i-1] + 1;
         }
+        int sum = candies[candies.length-1];
         for (int i = candies.length-2; i >= 0; i--){
             if (ratings[i] > ratings[i+1])
                 candies[i] = Math.max(candies[i], (candies[i + 1] + 1));
+            sum += candies[i];
         }
-        int sum = 0;
-        for (int candy : candies)
-            sum += candy;
+        // int sum = 0;
+        // for (int candy : candies)
+        //     sum += candy;
         return sum;
     }
-
 }

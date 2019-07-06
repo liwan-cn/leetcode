@@ -2,18 +2,18 @@ class Solution {
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> lists = new ArrayList<>();
         if (numRows == 0) return lists;
-        List<Integer> eachList = new ArrayList<>();
-        eachList.add(1);
-        lists.add(eachList);
+        List<Integer> lastList = new ArrayList<>();
+        lastList.add(1);
+        lists.add(lastList);
         for (int i = 1; i < numRows; i++){
-            List<Integer> nextList = new ArrayList<>();
-            nextList.add(1);
+            List<Integer> nowList = new ArrayList<>();
+            nowList.add(1);
             for(int j = 1; j < i; j++){
-                nextList.add(eachList.get(j-1) + eachList.get(j));
+                nowList.add(lastList.get(j-1) + lastList.get(j));
             }
-            nextList.add(1);
-            eachList = nextList;
-            lists.add(eachList);
+            nowList.add(1);
+            lists.add(nowList);
+            lastList = nowList;
         }
         return lists;
     }

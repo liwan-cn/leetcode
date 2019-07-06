@@ -32,9 +32,11 @@ class Solution {
                         chs[i] = c;
                         String target = String.valueOf(chs);
                         if (endSet.contains(target)) {
+                            //标志是否找到最短路径, 如果找到, 结束本次循环后就不用继续查找了
                             flag = true;
                         }
                         if ((endSet.contains(target) || !visitedSet.contains(target)) && wordSet.contains(target)) {
+                            //endSet包含也要加入  因为要找出路径
                             temp.add(target);
                             String key = flip ? word : target;
                             String val = flip ? target : word;
@@ -48,7 +50,7 @@ class Solution {
                 }
             }
             for (String str : temp)// 不同路径到达同一个
-                visitedSet.add(str); 
+                visitedSet.add(str);
             //System.out.println(beginSet);
             //System.out.println(temp);
             beginSet = temp;

@@ -9,7 +9,6 @@
 class Solution {
     public void reorderList(ListNode head) {
         if (head == null || head.next == null) return;
-
         ListNode prev = null, slow = head, fast = head, l1 = head;
         while (fast != null && fast.next != null){
             prev = slow;
