@@ -8,22 +8,18 @@
  * }
  */
 class Solution {
+    private Integer pre;
     public boolean isValidBST(TreeNode root) {
-        Stack<TreeNode> s = new Stack<>();
+        pre = null;
+        return inOrder(root);
+    }
+    private boolean inOrder(TreeNode root){
         if (root == null) return true;
-        TreeNode node = root;
-        TreeNode pre = null;
-        while (node != null || !s.isEmpty()){
-            if (node != null){
-                s.push(node);
-                node = node.left;
-            } else {
-                node = s.pop();
-                if(pre != null && node.val <= pre.val) return false;
-                pre = node;
-                node = node.right;
-            }
-        }
+        if (!inOrder(root.left)) return false;
+        //System.out.println(root.val + ";" + pre);
+        if (pre != null && pre >= root.val) return false;
+        pre = root.val;
+        if (!inOrder(root.right)) return false;
         return true;
     }
 }
